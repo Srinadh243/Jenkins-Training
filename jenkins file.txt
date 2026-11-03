@@ -1,0 +1,40 @@
+pipeline {
+    agent any // Runs the pipeline on any available Jenkins agent
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Cloning source code...'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building the application...'
+                // Example for Maven/Java: sh 'mvn clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running automated tests...'
+                // Example: sh 'mvn test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying to staging environment...'
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo 'Pipeline has finished executing.'
+        }
+        success {
+            echo 'Build completed successfully!'
+        }
+        failure {
+            echo 'Build failed. Sending notifications...'
+        }
+    }
+}
